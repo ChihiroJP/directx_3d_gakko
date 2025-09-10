@@ -12,7 +12,7 @@ using namespace DirectX;
 #include "header/direct3d.h"
 #include "header/debug_ostream.h"
 #include <fstream>
-#include "header/shader.h"
+#include "header/shader3d.h"
 
 
 static ID3D11VertexShader* g_pVertexShader = nullptr;
