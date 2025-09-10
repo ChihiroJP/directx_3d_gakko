@@ -1,6 +1,6 @@
 /*==============================================================================
 
-   シェーダー [shader3d.h]
+   ３Dシェーダー [shader3d.h]
 														 Author : CheeHow
 														 Date   : 2025/09/09
 --------------------------------------------------------------------------------
@@ -12,12 +12,13 @@
 #include <d3d11.h>
 #include <DirectXMath.h>
 
-bool Shader_Initialize(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
-void Shader_Finalize();
+bool Shader3d_Initialize(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
+void Shader3d_Finalize();
 
 void Shader_SetWorldMatrix(const DirectX::XMMATRIX& matrix);
-void Shader_SetProjectionMatrix(const DirectX::XMMATRIX& matrix);
+void Shader3d_SetViewMatrix(const DirectX::XMMATRIX& matrix);
+void Shader3d_SetProjectionMatrix(const DirectX::XMMATRIX& matrix);
 
-void Shader_Begin();
+void Shader3d_Begin();
 
 #endif // SHADER3D_H

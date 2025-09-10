@@ -27,7 +27,7 @@ static ID3D11Device* g_pDevice = nullptr;
 static ID3D11DeviceContext* g_pContext = nullptr;
 
 
-bool Shader_Initialize(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
+bool Shader3d_Initialize(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 {
 	HRESULT hr; // 戻り値格納用
 
@@ -148,7 +148,7 @@ bool Shader_Initialize(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 	return true;
 }
 
-void Shader_Finalize()
+void Shader3d_Finalize()
 {
 	SAFE_RELEASE(g_pSamplerState);
 	SAFE_RELEASE(g_pPixelShader);
@@ -158,7 +158,7 @@ void Shader_Finalize()
 	SAFE_RELEASE(g_pVertexShader);
 }
 
-void Shader_SetWorldMatrix(const DirectX::XMMATRIX& matrix)
+void Shader3d_SetWorldMatrix(const DirectX::XMMATRIX& matrix)
 {
 	// 定数バッファ格納用行列の構造体を定義
 	XMFLOAT4X4 transpose;
@@ -170,7 +170,7 @@ void Shader_SetWorldMatrix(const DirectX::XMMATRIX& matrix)
 	g_pContext->UpdateSubresource(g_pVSConstantBuffer1, 0,nullptr, &transpose, 0, 0);
 }
 
-void Shader_SetProjectionMatrix(const DirectX::XMMATRIX& matrix)
+void Shader3d_SetProjectionMatrix(const DirectX::XMMATRIX& matrix)
 {
 	// 定数バッファ格納用行列の構造体を定義
 	XMFLOAT4X4 transpose;
@@ -182,7 +182,7 @@ void Shader_SetProjectionMatrix(const DirectX::XMMATRIX& matrix)
 	g_pContext->UpdateSubresource(g_pVSConstantBuffer0, 0, nullptr, &transpose, 0, 0);
 }
 
-void Shader_Begin()
+void Shader3d_Begin()
 {
 	// 頂点シェーダーとピクセルシェーダーを描画パイプラインに設定
 	g_pContext->VSSetShader(g_pVertexShader, nullptr, 0);

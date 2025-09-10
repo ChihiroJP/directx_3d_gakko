@@ -88,6 +88,8 @@ void Cube_Draw(void)
     float nearZ = 0.01f;
     float farZ = 100.0f;
     DirectX::XMMATRIX mtxPerspective = DirectX::XMMatrixPerspectiveFovLH(fovAngleY, aspectRatio, nearZ, farZ); // cast として計算して、float変換する
+
+    // 頂点シェーダにプロジェクション変換
     Shader_SetProjectionMatrix(mtxPerspective);
 
     //                                    変換終わり
