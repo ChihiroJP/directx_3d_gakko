@@ -36,4 +36,7 @@ ID3D11DeviceContext* Direct3D_GetContext();
 void Direct3D_SetAlphaBlendTransparent();
 void Direct3D_SetAlphaBlendAdd();
 
+// 深度バッファーの設定
+void Direct3D_SetDepthEnable(bool enable);
+
 #endif // DIRECT3D_H

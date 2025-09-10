@@ -15,7 +15,7 @@
 bool Shader3d_Initialize(ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 void Shader3d_Finalize();
 
-void Shader_SetWorldMatrix(const DirectX::XMMATRIX& matrix);
+void Shader3d_SetWorldMatrix(const DirectX::XMMATRIX& matrix);
 void Shader3d_SetViewMatrix(const DirectX::XMMATRIX& matrix);
 void Shader3d_SetProjectionMatrix(const DirectX::XMMATRIX& matrix);
 

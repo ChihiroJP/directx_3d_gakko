@@ -1,34 +1,36 @@
 #include <Windows.h>
 #include <sstream>
-#include "debug_ostream.h"
+#include "header/debug_ostream.h"
 #include <SDKDDKVer.h>
-#include "GameWindow.h"
+#include "header/GameWindow.h"
 #define WIN32_LEAN_AND_MEAN
-#include "direct3d.h"
-#include "shader.h"
-#include "sprite.h"
-#include "texture.h"
-#include "sprite_anim.h"
-#include "fade.h"
-#include "collision.h"
-#include "debug_text.h"
-#include "system_timer.h"
-#include "polygon.h"
+#include "header/direct3d.h"
+#include "header/shader.h"
+#include "header/shader3d.h"
+#include "header/sprite.h"
+#include "header/texture.h"
+#include "header/sprite_anim.h"
+#include "header/fade.h"
+#include "header/collision.h"
+#include "header/debug_text.h"
+#include "header/system_timer.h"
+#include "header/polygon.h"
 #include <math.h>
 #include <DirectXMath.h>
-#include "key_logger.h"
-#include "mouse.h"
+#include "header/key_logger.h"
+#include "header/mouse.h"
 #include <Xinput.h>
 #pragma comment(lib, "xinput.lib")
-#include "scene.h"
-#include "Audio.h"
-#include "score.h"
+#include "header/scene.h"
+#include "header/Audio.h"
+#include "header/score.h"
+#include "header/cube.h"
 
 using namespace DirectX;
 
 int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int nCmdShow)
 {
-	(void) CoInitializeEx(nullptr, COINIT_MULTITHREADED); // a yayy kyi loh m yayy loh m ya
+	(void) CoInitializeEx(nullptr, COINIT_MULTITHREADED); 
 
 	SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 
@@ -41,15 +43,15 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPSTR, _
 
 	Direct3D_Initialize(hWnd);
 	Shader_Initialize(Direct3D_GetDevice(), Direct3D_GetContext());
+	Shader3d_Initialize(Direct3D_GetDevice(), Direct3D_GetContext());
 	Texture_Initialize(Direct3D_GetDevice(), Direct3D_GetContext());
 	Sprite_Initialize(Direct3D_GetDevice(), Direct3D_GetContext());
 	SpriteAnim_Initialize();
 	Fade_Initialize();
 	Mouse_SetVisible(false);
-
 	Scene_Initialize();
+	Cube_Initialize(Direct3D_GetDevice(), Direct3D_GetContext());
 
-	Polygon_Initialize(Direct3D_GetDevice(), Direct3D_GetContext());
 
 #if defined(DEBUG) || defined(_DEBUG)
 
@@ -130,19 +132,18 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPSTR, _
 	Collision_DebugFinalize();
 #endif
 
-	Scene_Finalize();
+	Cube_Finalize();
 
+	Scene_Finalize();
 	Fade_Finalize();
-	Polygon_Finalize();
 	SpriteAnim_Finalize();
 	Texture_Finialize();
 	Sprite_Finalize();
 	Shader_Finalize();
+	Shader3d_Finalize();
 	Direct3D_Finalize();
 	UninitAudio();
 	Mouse_Finalize();
-
-	CoUninitialize();
 
 	return(int)msg.wParam;
 

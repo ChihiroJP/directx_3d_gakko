@@ -5,7 +5,7 @@
 #include "header/cube.h"
 #include <DirectXMath.h>
 #include "header/direct3d.h"
-#include "header/shader.h"
+#include "header/shader3d.h"
 
 static constexpr int NUM_VERTEX = 3 * 2 * 6; // Vertex
 
@@ -24,12 +24,12 @@ struct Vertex3D
 
 static Vertex3D g_CubeVertex[NUM_VERTEX]
 {
-    {{-0.5f, 0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}},
-    {{0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}},
+    {{-0.5f,  0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}},
+    {{ 0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}},
     {{-0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}},
-    {{0.5f, 0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}},
-    {{0.5f, 0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}},
-    {{0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}}
+    {{ 0.5f, 0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}},
+    {{ 0.5f, 0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}},
+    {{ 0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}}
         
 };
 
@@ -50,7 +50,7 @@ void Cube_Initialize(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
     sd.pSysMem = g_CubeVertex;
 
     
-    g_pDevice->CreateBuffer(&bd, NULL, &g_pVertexBuffer); 
+    g_pDevice->CreateBuffer(&bd, &sd, &g_pVertexBuffer); 
 }
 
 void Cube_Finalize(void)
@@ -60,7 +60,7 @@ void Cube_Finalize(void)
 
 void Cube_Draw(void)
 {
-    Shader_Begin();
+    Shader3d_Begin();
 
     // 頂点バッファを描画パイプライン処理
     UINT stride = sizeof(Vertex3D);
@@ -68,29 +68,32 @@ void Cube_Draw(void)
     g_pContext->IASetVertexBuffers(0, 1, &g_pVertexBuffer, &stride, &offset);
 
     // ===========================================================================
-    // 座標変換開始（４回）
+    // 座標変換開始
     // =====================================================================================================================================================
     
     // ワールド座標変換行列
     DirectX::XMMATRIX mtxWorld = DirectX::XMMatrixIdentity(); // 単位行列の作成
 
     // 頂点シェーダにワールド座標変換行列を設定
-    Shader_SetWorldMatrix(mtxWorld);
+    Shader3d_SetWorldMatrix(mtxWorld);
 
     // ビュー座標へんかんぎょうれつの作成
-    DirectX::XMMATRIX mtxView = DirectX::XMMatrixLookAtLH({2.0f, 2.0f, -5.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 0.1f, 0.0f}); // カメラが見てる場所
+    DirectX::XMMATRIX mtxView = DirectX::XMMatrixLookAtLH(
+		{ 2.0f, 2.0f, -5.0f }, // カメラの位置
+		{ 0.0f, 0.0f, 0.0f }, // 注視点の位置
+		{ 0.0f, 1.0f, 0.0f }); // カメラの上方向ベクトル
 
-    // Shader_SetViewMatrix(mtxView);
+    Shader3d_SetViewMatrix(mtxView);
     
     // パースペクティブ行列の作成
-    float fovAngleY = DirectX::XMConvertToRadians(60.0f);
+    constexpr float fovAngleY = DirectX::XMConvertToRadians(60.0f);
     float aspectRatio = static_cast<float>(Direct3D_GetBackBufferWidth()) / Direct3D_GetBackBufferHeight();
     float nearZ = 0.01f;
     float farZ = 100.0f;
     DirectX::XMMATRIX mtxPerspective = DirectX::XMMatrixPerspectiveFovLH(fovAngleY, aspectRatio, nearZ, farZ); // cast として計算して、float変換する
 
     // 頂点シェーダにプロジェクション変換
-    Shader_SetProjectionMatrix(mtxPerspective);
+    Shader3d_SetProjectionMatrix(mtxPerspective);
 
     //                                    変換終わり
     // ==================================================================================================================================================

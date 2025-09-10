@@ -7,9 +7,9 @@
 
 ==============================================================================*/
 
-#include "scene.h"
-#include "title.h"
-#include "game.h"
+#include "header/scene.h"
+#include "header/title.h"
+#include "header/game.h"
 
 static Scene g_Scene = SCENE_GAME;
 static Scene g_SceneNext = g_Scene;

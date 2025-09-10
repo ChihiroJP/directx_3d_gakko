@@ -1,12 +1,14 @@
 /*==============================================================================
 
 	Game –{‘Ì [game.cpp]
-														 Author : Zishan
+														 Author : CheeHow
 														 Date   : 2025/06/27
 --------------------------------------------------------------------------------
 
 ==============================================================================*/
-#include "game.h"
+#include "header/game.h"
+#include "header/cube.h"
+
 
 
 static bool g_start = false;
@@ -33,5 +35,6 @@ void Game_Update(double elapsed_time)
 
 void Game_Draw()
 {
+	Cube_Draw();
 
 }

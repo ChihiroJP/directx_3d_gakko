@@ -1,6 +1,6 @@
 /*==============================================================================
 
-   Sprite •`‰æ [sprite.cpp]
+   Sprite ï¿½`ï¿½ï¿½ [sprite.cpp]
 														 Author : Zishan
 														 Date   : 2025/06/12
 --------------------------------------------------------------------------------
@@ -9,12 +9,12 @@
 #include <d3d11.h>
 #include <DirectXMath.h>
 using namespace DirectX;
-#include"DirectXTex.h"
-#include "direct3d.h"
-#include "shader.h"
-#include "debug_ostream.h"
-#include "sprite.h"
-#include "texture.h"
+#include"header/DirectXTex.h"
+#include "header/direct3d.h"
+#include "header/shader.h"
+#include "header/debug_ostream.h"
+#include "header/sprite.h"
+#include "header/texture.h"
 
 #pragma comment(lib, "d3d11.lib")
 
@@ -25,16 +25,16 @@ static constexpr int NUM_VERTEX = 4; // Vertex
 static ID3D11Buffer* g_pVertexBuffer = nullptr; // VertexBuffer
 static ID3D11ShaderResourceView* g_pTexture = nullptr; // Texture
 
-// ’ˆÓI‰Šú‰»‚ÅŠO•”‚©‚çİ’è‚³‚ê‚é‚à‚ÌBRelease•s—vB
+// ï¿½ï¿½ï¿½ÓIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÅŠOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ’è‚³ï¿½ï¿½ï¿½ï¿½ï¿½ÌBReleaseï¿½sï¿½vï¿½B
 static ID3D11Device* g_pDevice = nullptr;
 static ID3D11DeviceContext* g_pContext = nullptr;
 
 
 
-// ’¸“_\‘¢‘Ì
+// ï¿½ï¿½ï¿½_ï¿½\ï¿½ï¿½ï¿½ï¿½
 struct Vertex
 {
-	XMFLOAT3 position; // ’¸“_À•W
+	XMFLOAT3 position; // ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½W
 	XMFLOAT4 color;
 	XMFLOAT2 uv;//uv
 };
@@ -42,17 +42,17 @@ struct Vertex
 
 void Sprite_Initialize(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 {
-	// ƒfƒoƒCƒX‚ÆƒfƒoƒCƒXƒRƒ“ƒeƒLƒXƒg‚Ìƒ`ƒFƒbƒN
+	// ï¿½fï¿½oï¿½Cï¿½Xï¿½Æƒfï¿½oï¿½Cï¿½Xï¿½Rï¿½ï¿½ï¿½eï¿½Lï¿½Xï¿½gï¿½Ìƒ`ï¿½Fï¿½bï¿½N
 	if (!pDevice || !pContext) {
-		hal::dout << "Sprite_Initialize() : —^‚¦‚ç‚ê‚½ƒfƒoƒCƒX‚©ƒRƒ“ƒeƒLƒXƒg‚ª•s³‚Å‚·" << std::endl;
+		hal::dout << "Sprite_Initialize() : ï¿½^ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½fï¿½oï¿½Cï¿½Xï¿½ï¿½ï¿½Rï¿½ï¿½ï¿½eï¿½Lï¿½Xï¿½gï¿½ï¿½ï¿½sï¿½ï¿½ï¿½Å‚ï¿½" << std::endl;
 		return;
 	}
 
-	// ƒfƒoƒCƒX‚ÆƒfƒoƒCƒXƒRƒ“ƒeƒLƒXƒg‚Ì•Û‘¶
+	// ï¿½fï¿½oï¿½Cï¿½Xï¿½Æƒfï¿½oï¿½Cï¿½Xï¿½Rï¿½ï¿½ï¿½eï¿½Lï¿½Xï¿½gï¿½Ì•Û‘ï¿½
 	g_pDevice = pDevice;
 	g_pContext = pContext;
 
-	// ’¸“_ƒoƒbƒtƒ@¶¬
+	// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½ï¿½ï¿½
 	D3D11_BUFFER_DESC bd = {};
 	bd.Usage = D3D11_USAGE_DYNAMIC;
 	bd.ByteWidth = sizeof(Vertex) * NUM_VERTEX;
@@ -71,7 +71,7 @@ void Sprite_Finalize(void)
 
 void Sprite_Begin()
 {
-	// ’¸“_ƒVƒF[ƒ_[‚É•ÏŠ·s—ñ‚ğİ’è
+	// ï¿½ï¿½ï¿½_ï¿½Vï¿½Fï¿½[ï¿½_ï¿½[ï¿½É•ÏŠï¿½ï¿½sï¿½ï¿½ï¿½İ’ï¿½
 	const float SCREEN_WIDTH = (float)Direct3D_GetBackBufferWidth();
 	const float SCREEN_HEIGHT = (float)Direct3D_GetBackBufferHeight();
 	Shader_SetProjectionMatrix(XMMatrixOrthographicOffCenterLH(0.0f, SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f, 0.0f, 1.0f));
@@ -81,14 +81,14 @@ void Sprite_Begin()
 
 void Sprite_Draw(int texid, float dx, float dy, const DirectX::XMFLOAT4& color)
 {
-	// ƒVƒF[ƒ_[‚ğ•`‰æƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+	// ï¿½Vï¿½Fï¿½[ï¿½_ï¿½[ï¿½ï¿½`ï¿½ï¿½pï¿½Cï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Éİ’ï¿½
 	Shader_Begin();
 
-	// ’¸“_ƒoƒbƒtƒ@‚ğƒƒbƒN‚·‚é
+	// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½
 	D3D11_MAPPED_SUBRESOURCE msr;
 	g_pContext->Map(g_pVertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &msr);
 
-	// ’¸“_ƒoƒbƒtƒ@‚Ö‚Ì‰¼‘zƒ|ƒCƒ“ƒ^‚ğæ“¾
+	// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Ö‚Ì‰ï¿½ï¿½zï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½ï¿½ï¿½æ“¾
 	Vertex* v = (Vertex*)msr.pData;
 
 	// Coordinate Position 
@@ -143,37 +143,37 @@ void Sprite_Draw(int texid, float dx, float dy, const DirectX::XMFLOAT4& color)
 	v[3].uv = { 1.0f, 1.0f }; // bottom right
 
 
-	// ’¸“_ƒoƒbƒtƒ@‚ÌƒƒbƒN‚ğ‰ğœ
+	// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Ìƒï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	g_pContext->Unmap(g_pVertexBuffer, 0);
 
-	// World •ÏŠ·s—ñ‚ğİ’è
+	// World ï¿½ÏŠï¿½ï¿½sï¿½ï¿½ï¿½İ’ï¿½
 	Shader_SetWorldMatrix(XMMatrixIdentity());
 
-	// ’¸“_ƒoƒbƒtƒ@‚ğ•`‰æƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+	// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½`ï¿½ï¿½pï¿½Cï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Éİ’ï¿½
 	UINT stride = sizeof(Vertex);
 	UINT offset = 0;
 	g_pContext->IASetVertexBuffers(0, 1, &g_pVertexBuffer, &stride, &offset);
 
-	// ƒvƒŠƒ~ƒeƒBƒuƒgƒ|ƒƒWİ’è
+	// ï¿½vï¿½ï¿½ï¿½~ï¿½eï¿½Bï¿½uï¿½gï¿½|ï¿½ï¿½ï¿½Wï¿½İ’ï¿½
 	g_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP); //STRIPLIST 
 
-	// Texture ‚Ìİ’è
+	// Texture ï¿½Ìİ’ï¿½
 	Texture_SetTexture(texid);
 
-	// ƒ|ƒŠƒSƒ“•`‰æ–½—ß”­s
+	// ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½`ï¿½æ–½ï¿½ß”ï¿½ï¿½s
 	g_pContext->Draw(NUM_VERTEX, 0);
 }
 
 void Sprite_Draw(int texid, float dx, float dy, float dh, float dw, const DirectX::XMFLOAT4& color)
 {
-	// ƒVƒF[ƒ_[‚ğ•`‰æƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+	// ï¿½Vï¿½Fï¿½[ï¿½_ï¿½[ï¿½ï¿½`ï¿½ï¿½pï¿½Cï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Éİ’ï¿½
 	Shader_Begin();
 
-	// ’¸“_ƒoƒbƒtƒ@‚ğƒƒbƒN‚·‚é
+	// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½
 	D3D11_MAPPED_SUBRESOURCE msr;
 	g_pContext->Map(g_pVertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &msr);
 
-	// ’¸“_ƒoƒbƒtƒ@‚Ö‚Ì‰¼‘zƒ|ƒCƒ“ƒ^‚ğæ“¾
+	// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Ö‚Ì‰ï¿½ï¿½zï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½ï¿½ï¿½æ“¾
 	Vertex* v = (Vertex*)msr.pData;
 
 	//Coordinate but variable lok pi tone loh ya dr ko pya
@@ -195,36 +195,36 @@ void Sprite_Draw(int texid, float dx, float dy, float dh, float dw, const Direct
 	v[3].uv = { 1.0f, 1.0f }; // bottom right
 
 
-	// ’¸“_ƒoƒbƒtƒ@‚ÌƒƒbƒN‚ğ‰ğœ
+	// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Ìƒï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	g_pContext->Unmap(g_pVertexBuffer, 0);
 
-	// World •ÏŠ·s—ñ‚ğİ’è
+	// World ï¿½ÏŠï¿½ï¿½sï¿½ï¿½ï¿½İ’ï¿½
 	Shader_SetWorldMatrix(XMMatrixIdentity());
 
-	// ’¸“_ƒoƒbƒtƒ@‚ğ•`‰æƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+	// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½`ï¿½ï¿½pï¿½Cï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Éİ’ï¿½
 	UINT stride = sizeof(Vertex);
 	UINT offset = 0;
 	g_pContext->IASetVertexBuffers(0, 1, &g_pVertexBuffer, &stride, &offset);
 
-	// ƒvƒŠƒ~ƒeƒBƒuƒgƒ|ƒƒWİ’è
+	// ï¿½vï¿½ï¿½ï¿½~ï¿½eï¿½Bï¿½uï¿½gï¿½|ï¿½ï¿½ï¿½Wï¿½İ’ï¿½
 	g_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP); //STRIPLIST 
 
-	// Texture ‚Ìİ’è
+	// Texture ï¿½Ìİ’ï¿½
 	Texture_SetTexture(texid);
 
-	// ƒ|ƒŠƒSƒ“•`‰æ–½—ß”­s
+	// ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½`ï¿½æ–½ï¿½ß”ï¿½ï¿½s
 	g_pContext->Draw(NUM_VERTEX, 0);
 }
 void Sprite_Draw(int texid, float dx, float dy, int pix, int piy, int piw, int pih, const DirectX::XMFLOAT4& color)
 {
-	// ƒVƒF[ƒ_[‚ğ•`‰æƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+	// ï¿½Vï¿½Fï¿½[ï¿½_ï¿½[ï¿½ï¿½`ï¿½ï¿½pï¿½Cï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Éİ’ï¿½
 	Shader_Begin();
 
-	// ’¸“_ƒoƒbƒtƒ@‚ğƒƒbƒN‚·‚é
+	// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½
 	D3D11_MAPPED_SUBRESOURCE msr;
 	g_pContext->Map(g_pVertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &msr);
 
-	// ’¸“_ƒoƒbƒtƒ@‚Ö‚Ì‰¼‘zƒ|ƒCƒ“ƒ^‚ğæ“¾
+	// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Ö‚Ì‰ï¿½ï¿½zï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½ï¿½ï¿½æ“¾
 	Vertex* v = (Vertex*)msr.pData;
 
 	v[0].position = { dx      , dy      , 0.0f };
@@ -259,24 +259,24 @@ void Sprite_Draw(int texid, float dx, float dy, int pix, int piy, int piw, int p
 	v[3].uv = { u1, v1 }; // bottom right
 
 
-	// ’¸“_ƒoƒbƒtƒ@‚ÌƒƒbƒN‚ğ‰ğœ
+	// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Ìƒï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	g_pContext->Unmap(g_pVertexBuffer, 0);
 
-	// World •ÏŠ·s—ñ‚ğİ’è
+	// World ï¿½ÏŠï¿½ï¿½sï¿½ï¿½ï¿½İ’ï¿½
 	Shader_SetWorldMatrix(XMMatrixIdentity());
 
-	// ’¸“_ƒoƒbƒtƒ@‚ğ•`‰æƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+	// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½`ï¿½ï¿½pï¿½Cï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Éİ’ï¿½
 	UINT stride = sizeof(Vertex);
 	UINT offset = 0;
 	g_pContext->IASetVertexBuffers(0, 1, &g_pVertexBuffer, &stride, &offset);
 
-	// ƒvƒŠƒ~ƒeƒBƒuƒgƒ|ƒƒWİ’è
+	// ï¿½vï¿½ï¿½ï¿½~ï¿½eï¿½Bï¿½uï¿½gï¿½|ï¿½ï¿½ï¿½Wï¿½İ’ï¿½
 	g_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP); //STRIPLIST 
 
-	// Texture ‚Ìİ’è
+	// Texture ï¿½Ìİ’ï¿½
 	Texture_SetTexture(texid);
 
-	// ƒ|ƒŠƒSƒ“•`‰æ–½—ß”­s
+	// ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½`ï¿½æ–½ï¿½ß”ï¿½ï¿½s
 	g_pContext->Draw(NUM_VERTEX, 0);
 }
 
@@ -284,14 +284,14 @@ void Sprite_Draw(int texid, float dx, float dy, int pix, int piy, int piw, int p
 
 void Sprite_Draw(int texid, float dx, float dy, float dw, float dh, int pix, int piy, int piw, int pih, const DirectX::XMFLOAT4& color)
 {
-	// ƒVƒF[ƒ_[‚ğ•`‰æƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+	// ï¿½Vï¿½Fï¿½[ï¿½_ï¿½[ï¿½ï¿½`ï¿½ï¿½pï¿½Cï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Éİ’ï¿½
 	Shader_Begin();
 
-	// ’¸“_ƒoƒbƒtƒ@‚ğƒƒbƒN‚·‚é
+	// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½
 	D3D11_MAPPED_SUBRESOURCE msr;
 	g_pContext->Map(g_pVertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &msr);
 
-	// ’¸“_ƒoƒbƒtƒ@‚Ö‚Ì‰¼‘zƒ|ƒCƒ“ƒ^‚ğæ“¾
+	// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Ö‚Ì‰ï¿½ï¿½zï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½ï¿½ï¿½æ“¾
 	Vertex* v = (Vertex*)msr.pData;
 
 	v[0].position = { dx,      dy, 0.0f };
@@ -325,37 +325,37 @@ void Sprite_Draw(int texid, float dx, float dy, float dw, float dh, int pix, int
 	v[2].uv = { u0,v1 }; // bottom left a
 	v[3].uv = { u1,v1 }; // bottom right
 
-	// ’¸“_ƒoƒbƒtƒ@‚ÌƒƒbƒN‚ğ‰ğœ
+	// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Ìƒï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	g_pContext->Unmap(g_pVertexBuffer, 0);
 
-	// World •ÏŠ·s—ñ‚ğİ’è
+	// World ï¿½ÏŠï¿½ï¿½sï¿½ï¿½ï¿½İ’ï¿½
 	Shader_SetWorldMatrix(XMMatrixIdentity());
 
-	// ’¸“_ƒoƒbƒtƒ@‚ğ•`‰æƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+	// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½`ï¿½ï¿½pï¿½Cï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Éİ’ï¿½
 	UINT stride = sizeof(Vertex);
 	UINT offset = 0;
 	g_pContext->IASetVertexBuffers(0, 1, &g_pVertexBuffer, &stride, &offset);
 
-	// ƒvƒŠƒ~ƒeƒBƒuƒgƒ|ƒƒWİ’è
+	// ï¿½vï¿½ï¿½ï¿½~ï¿½eï¿½Bï¿½uï¿½gï¿½|ï¿½ï¿½ï¿½Wï¿½İ’ï¿½
 	g_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP); //STRIPLIST 
 
-	// Texture ‚Ìİ’è
+	// Texture ï¿½Ìİ’ï¿½
 	Texture_SetTexture(texid);
 
-	// ƒ|ƒŠƒSƒ“•`‰æ–½—ß”­s
+	// ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½`ï¿½æ–½ï¿½ß”ï¿½ï¿½s
 	g_pContext->Draw(NUM_VERTEX, 0);
 }
 
 void Sprite_Draw(int texid, float dx, float dy, float dw, float dh, int pix, int piy, int piw, int pih, float angle, const DirectX::XMFLOAT4& color)
 {
-	// ƒVƒF[ƒ_[‚ğ•`‰æƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+	// ï¿½Vï¿½Fï¿½[ï¿½_ï¿½[ï¿½ï¿½`ï¿½ï¿½pï¿½Cï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Éİ’ï¿½
 	Shader_Begin();
 
-	// ’¸“_ƒoƒbƒtƒ@‚ğƒƒbƒN‚·‚é
+	// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½
 	D3D11_MAPPED_SUBRESOURCE msr;
 	g_pContext->Map(g_pVertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &msr);
 
-	// ’¸“_ƒoƒbƒtƒ@‚Ö‚Ì‰¼‘zƒ|ƒCƒ“ƒ^‚ğæ“¾
+	// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Ö‚Ì‰ï¿½ï¿½zï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½ï¿½ï¿½æ“¾
 	Vertex* v = (Vertex*)msr.pData;
 
 	v[0].position = { -0.5f,-0.5f, 0.0f };
@@ -392,31 +392,31 @@ void Sprite_Draw(int texid, float dx, float dy, float dw, float dh, int pix, int
 	v[3].uv = { u1,v1 }; // bottom right
 
 
-	// ’¸“_ƒoƒbƒtƒ@‚ÌƒƒbƒN‚ğ‰ğœ
+	// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Ìƒï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	g_pContext->Unmap(g_pVertexBuffer, 0);
 
-	// World •ÏŠ·s—ñ‚ğİ’è
+	// World ï¿½ÏŠï¿½ï¿½sï¿½ï¿½ï¿½İ’ï¿½
 	//Shader_SetWorldMatrix(XMMatrixIdentity());
 
-	// ‰ñ“]s—ñ‚ğ shader ‚Éİ’è
+	// ï¿½ï¿½]ï¿½sï¿½ï¿½ï¿½ shader ï¿½Éİ’ï¿½
 	XMMATRIX scale = XMMatrixScaling(dw, dh, 1.0f);
 	XMMATRIX rotation = XMMatrixRotationZ(angle);
 	XMMATRIX translation = XMMatrixTranslation(dx, dy, 0.0f);
 
 	Shader_SetWorldMatrix(scale * rotation * translation);
 
-	// ’¸“_ƒoƒbƒtƒ@‚ğ•`‰æƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+	// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½`ï¿½ï¿½pï¿½Cï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Éİ’ï¿½
 	UINT stride = sizeof(Vertex);
 	UINT offset = 0;
 	g_pContext->IASetVertexBuffers(0, 1, &g_pVertexBuffer, &stride, &offset);
 
-	// ƒvƒŠƒ~ƒeƒBƒuƒgƒ|ƒƒWİ’è
+	// ï¿½vï¿½ï¿½ï¿½~ï¿½eï¿½Bï¿½uï¿½gï¿½|ï¿½ï¿½ï¿½Wï¿½İ’ï¿½
 	g_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP); //STRIPLIST 
 
-	// Texture ‚Ìİ’è
+	// Texture ï¿½Ìİ’ï¿½
 	Texture_SetTexture(texid);
 
-	// ƒ|ƒŠƒSƒ“•`‰æ–½—ß”­s
+	// ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½`ï¿½æ–½ï¿½ß”ï¿½ï¿½s
 	g_pContext->Draw(NUM_VERTEX, 0);
 }
 

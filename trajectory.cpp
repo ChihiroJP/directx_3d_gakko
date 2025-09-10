@@ -1,16 +1,16 @@
 /*==============================================================================
 
-   ãOê’ [trajectory.cpp]
+   ÔøΩOÔøΩÔøΩ [trajectory.cpp]
 														 Author : Chee How
 														 Date   : 2025/03/09
 --------------------------------------------------------------------------------
 
 ==============================================================================*/
 #include <d3d11.h>
-#include "trajectory.h"
-#include "texture.h"
-#include "sprite.h"
-#include "direct3d.h"
+#include "header/trajectory.h"
+#include "header/texture.h"
+#include "header/sprite.h"
+#include "header/direct3d.h"
 
 using namespace DirectX;
 

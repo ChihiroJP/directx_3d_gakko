@@ -1,20 +1,20 @@
 /*======================================================================================================================
 
 
-	debug ostream ‚ğì‚Á‚Äg‚¨‚¤@[debug_ostream.cpp]
+	debug ostream ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ägï¿½ï¿½ï¿½ï¿½ï¿½@[debug_ostream.cpp]
 																		Author : Youhei Sato
 																		Date	: 2025/6/4
 ---------------------------------------------------------------------------------------------------------------------
 
-	SHIFT_JIS‚Ì‚İ‘Î‰
+	SHIFT_JISï¿½Ì‚İ‘Î‰ï¿½
 	====================================================================================================================*/
-#include "GameWindow.h"
+#include "header/GameWindow.h"
 #include <algorithm>
-#include "keyboard.h"
-#include "mouse.h"
+#include "header/keyboard.h"
+#include "header/mouse.h"
 
 	/*--------------------------------------------------------------------------------------
-			Window procedure prototype éŒ¾
+			Window procedure prototype ï¿½éŒ¾
 		-------------------------------------------------------------------------------------*/
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -22,11 +22,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	Window Information
 	---------------------------------------------------------------------------------------*/
 static constexpr char WINDOW_CLASS[] = "GameWindow"; // main window access name
-static constexpr char TITLE[] = "GameWindow"; //window ‚ÌƒeƒLƒXƒg
+static constexpr char TITLE[] = "GameWindow"; //window ï¿½Ìƒeï¿½Lï¿½Xï¿½g
 
 HWND GameWindow_Create(HINSTANCE hInstance)
 {
-	/* Window ƒNƒ‰ƒX‚Ì“o˜^ */
+	/* Window ï¿½Nï¿½ï¿½ï¿½Xï¿½Ì“oï¿½^ */
 	WNDCLASSEX wcex{};
 
 	wcex.cbSize = sizeof(WNDCLASSEXW);
@@ -35,12 +35,12 @@ HWND GameWindow_Create(HINSTANCE hInstance)
 	wcex.hIcon = LoadIcon(hInstance, IDI_APPLICATION);
 	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-	//wcex.lpszMenuName = nullptr; // menu ‚Íì‚ç‚È‚¢
+	//wcex.lpszMenuName = nullptr; // menu ï¿½Íï¿½ï¿½È‚ï¿½
 	wcex.lpszClassName = WINDOW_CLASS;
 	wcex.hIconSm = LoadIcon(wcex.hInstance, IDI_APPLICATION);
 	RegisterClassEx(&wcex);
 
-	/* Main Window ‚Ìì¬ */
+	/* Main Window ï¿½Ìì¬ */
 	constexpr int SCREEN_WIDTH = 1600;
 	constexpr int SCREEN_HEIGHT = 900;
 
@@ -111,11 +111,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		}
 		break;
 	case WM_DESTROY: // window message
-		PostQuitMessage(0); // WM_QUIT message ‘—M
+		PostQuitMessage(0); // WM_QUIT message ï¿½ï¿½ï¿½M
 		break;
 
 	default:
-		// ’Êí‚Ì message ˆ—‚ÌŠÖ”‚É”C‚¹‚é
+		// ï¿½Êï¿½ï¿½ message ï¿½ï¿½ï¿½ï¿½ï¿½ÌŠÖï¿½ï¿½É”Cï¿½ï¿½ï¿½ï¿½
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
 	return 0;

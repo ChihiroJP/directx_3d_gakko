@@ -7,13 +7,13 @@ Title[title.cpp]
 
 ==============================================================================*/
 
-#include "title.h"
-#include "texture.h"
-#include "sprite.h"
-#include "key_logger.h"
-#include "scene.h"
-#include "fade.h"
-#include "game.h"
+#include "header/title.h"
+#include "header/texture.h"
+#include "header/sprite.h"
+#include "header/key_logger.h"
+#include "header/scene.h"
+#include "header/fade.h"
+#include "header/game.h"
 
 static int g_TitleBgTexId = -1;
 static Scene g_Scene = SCENE_GAME;

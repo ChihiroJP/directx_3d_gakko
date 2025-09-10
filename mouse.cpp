@@ -1,18 +1,18 @@
 //--------------------------------------------------------------------------------------
 // File: mouse.cpp
 //
-// •Ö—˜‚Èƒ}ƒEƒXƒ‚ƒWƒ…[ƒ‹
+// ï¿½Ö—ï¿½ï¿½Èƒ}ï¿½Eï¿½Xï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½[ï¿½ï¿½
 //
 //--------------------------------------------------------------------------------------
 // 2020/02/11
-//     DirectXTK‚æ‚èA‚È‚ñ‚¿‚á‚Á‚ÄCŒ¾Œê—p‚ÉƒVƒFƒCƒvƒAƒbƒv‰ü•Ï
+//     DirectXTKï¿½ï¿½ï¿½Aï¿½È‚ñ‚¿‚ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½pï¿½ÉƒVï¿½Fï¿½Cï¿½vï¿½Aï¿½bï¿½vï¿½ï¿½ï¿½ï¿½
 //
 // Licensed under the MIT License.
 //
 // http://go.microsoft.com/fwlink/?LinkId=248929
 // http://go.microsoft.com/fwlink/?LinkID=615561
 //--------------------------------------------------------------------------------------
-#include "mouse.h"
+#include "header/mouse.h"
 
 #include <windowsx.h>
 #include <assert.h>
@@ -182,7 +182,7 @@ void Mouse_ProcessMessage(UINT message, WPARAM wParam, LPARAM lParam)
         point.x = gLastX;
         point.y = gLastY;
 
-        // ƒŠƒ‚[ƒgƒfƒBƒXƒNƒgƒbƒv‚É‘Î‰‚·‚é‚½‚ß‚ÉˆÚ“®‘O‚ÉƒJ[ƒ\ƒ‹‚ğ•\¦‚·‚é
+        // ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½gï¿½fï¿½Bï¿½Xï¿½Nï¿½gï¿½bï¿½vï¿½É‘Î‰ï¿½ï¿½ï¿½ï¿½é‚½ï¿½ß‚ÉˆÚ“ï¿½ï¿½Oï¿½ÉƒJï¿½[ï¿½\ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         ShowCursor(TRUE);
 
         if (MapWindowPoints(gWindow, nullptr, &point, 1)) {
@@ -254,7 +254,7 @@ void Mouse_ProcessMessage(UINT message, WPARAM wParam, LPARAM lParam)
                 }
                 else if (raw.data.mouse.usFlags & MOUSE_VIRTUAL_DESKTOP) {
 
-                    // ƒŠƒ‚[ƒgƒfƒBƒXƒNƒgƒbƒv‚È‚Ç‚É‘Î‰
+                    // ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½gï¿½fï¿½Bï¿½Xï¿½Nï¿½gï¿½bï¿½vï¿½È‚Ç‚É‘Î‰ï¿½
                     const int width = GetSystemMetrics(SM_CXVIRTUALSCREEN);
                     const int height = GetSystemMetrics(SM_CYVIRTUALSCREEN);
 
@@ -340,13 +340,13 @@ void Mouse_ProcessMessage(UINT message, WPARAM wParam, LPARAM lParam)
         break;
 
     default:
-        // ƒ}ƒEƒX‚É‘Î‚·‚éƒƒbƒZ[ƒW‚Í–³‚©‚Á‚½c
+        // ï¿½}ï¿½Eï¿½Xï¿½É‘Î‚ï¿½ï¿½éƒï¿½bï¿½Zï¿½[ï¿½Wï¿½Í–ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½c
         return;
     }
 
     if (gMode == MOUSE_POSITION_MODE_ABSOLUTE) {
 
-        // ‚·‚×‚Ä‚Ìƒ}ƒEƒXƒƒbƒZ[ƒW‚É‘Î‚µ‚ÄV‚µ‚¢À•W‚ğæ“¾‚·‚é
+        // ï¿½ï¿½ï¿½×‚Ä‚Ìƒ}ï¿½Eï¿½Xï¿½ï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½É‘Î‚ï¿½ï¿½ÄVï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
         int xPos = GET_X_LPARAM(lParam);
         int yPos = GET_Y_LPARAM(lParam);
 

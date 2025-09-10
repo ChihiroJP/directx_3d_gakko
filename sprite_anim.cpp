@@ -7,9 +7,9 @@ Sprite_anim •\Ž¦ [sprite_anim.cpp]
 																	Date	: 2025/6/17
 -----------------------------------------------------------------------------------------
 =========================================================================================*/
-#include "sprite_anim.h"
-#include "sprite.h"
-#include "texture.h"
+#include "header/sprite_anim.h"
+#include "header/sprite.h"
+#include "header/texture.h"
 #include <DirectXMath.h>
 using namespace DirectX;
 

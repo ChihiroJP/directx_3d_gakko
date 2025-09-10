@@ -13,9 +13,9 @@ Date   : 2025/07/09
 
 
 ==============================================================================*/
-#include "score.h"
-#include "sprite.h"
-#include "texture.h"
+#include "header/score.h"
+#include "header/sprite.h"
+#include "header/texture.h"
 #include <algorithm>
 
 static unsigned int g_Score = 0;

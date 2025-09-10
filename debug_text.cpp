@@ -1,13 +1,13 @@
 /*==============================================================================
 
-   Direct3D11—p ƒfƒoƒbƒNƒeƒLƒXƒg•\¦ [debug_text.cpp]
+   Direct3D11ï¿½p ï¿½fï¿½oï¿½bï¿½Nï¿½eï¿½Lï¿½Xï¿½gï¿½\ï¿½ï¿½ [debug_text.cpp]
 														 Author : Youhei Sato
 														 Date   : 2025/06/15
 --------------------------------------------------------------------------------
 
 ==============================================================================*/
-#include "debug_text.h"
-#include "WICTextureLoader11.h"
+#include "header/debug_text.h"
+#include "header/WICTextureLoader11.h"
 using namespace DirectX;
 #include <D3Dcompiler.h>
 using namespace Microsoft::WRL;
@@ -41,7 +41,7 @@ namespace hal
 		}
 		else {
 			if (FAILED(CreateWICTextureFromFile(pDevice, pFontTextureFileName, &m_pTexture, &m_pTextureView))) {
-				MessageBoxW(nullptr, L"ƒtƒHƒ“ƒgƒeƒNƒXƒ`ƒƒ‚Ì“Ç‚İ‚İ‚É¸”s‚µ‚Ü‚µ‚½", pFontTextureFileName, MB_OK | MB_ICONERROR);
+				MessageBoxW(nullptr, L"ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Ì“Ç‚İï¿½ï¿½İ‚Éï¿½ï¿½sï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½", pFontTextureFileName, MB_OK | MB_ICONERROR);
 				return;
 			}
 
@@ -54,17 +54,17 @@ namespace hal
 		m_TextureHeight = texture2d_desc.Height;
 
 		if (!m_LineSpacing) {
-			m_LineSpacing = m_TextureHeight / 16.0f; // 16•¶š•ª‚Ì‚‚³‚ğ1s‚Ì‚‚³‚Æ‚·‚é
+			m_LineSpacing = m_TextureHeight / 16.0f; // 16ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½sï¿½Ìï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½
 		}
 
 		if (!m_CharacterSpacing) {
-			m_CharacterSpacing = m_TextureWidth / 16.0f; // 16•¶š•ª‚Ì•‚ğ1•¶š‚Ì•‚Æ‚·‚é
+			m_CharacterSpacing = m_TextureWidth / 16.0f; // 16ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì•ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½Ì•ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½
 		}
 
 		m_TextLines.emplace_back();
 
 		if (!m_pBlendState) {
-			// ƒuƒŒƒ“ƒhƒXƒe[ƒgİ’è
+			// ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½hï¿½Xï¿½eï¿½[ï¿½gï¿½İ’ï¿½
 			D3D11_BLEND_DESC blend_desc{};
 			blend_desc.RenderTarget[0].BlendEnable = TRUE;
 			blend_desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
@@ -79,29 +79,29 @@ namespace hal
 		}
 
 		if (!m_pDepthStencilState) {
-			// [“xƒXƒeƒ“ƒVƒ‹ƒXƒe[ƒgİ’è
+			// ï¿½[ï¿½xï¿½Xï¿½eï¿½ï¿½ï¿½Vï¿½ï¿½ï¿½Xï¿½eï¿½[ï¿½gï¿½İ’ï¿½
 			D3D11_DEPTH_STENCIL_DESC depth_stencil_desc{};
 			depth_stencil_desc.DepthFunc = D3D11_COMPARISON_LESS;
 			depth_stencil_desc.StencilEnable = FALSE;
-			depth_stencil_desc.DepthEnable = FALSE; // –³Œø‚É‚·‚é
+			depth_stencil_desc.DepthEnable = FALSE; // ï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½
 			depth_stencil_desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
 
 			m_pDevice->CreateDepthStencilState(&depth_stencil_desc, m_pDepthStencilState.GetAddressOf());
 		}
 
 		if (!m_pRasterizerState) {
-			// ƒ‰ƒXƒ^ƒ‰ƒCƒU[ƒXƒe[ƒgİ’è
+			// ï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Cï¿½Uï¿½[ï¿½Xï¿½eï¿½[ï¿½gï¿½İ’ï¿½
 			D3D11_RASTERIZER_DESC rasterizer_desc{};
 			rasterizer_desc.FillMode = D3D11_FILL_SOLID;
 			rasterizer_desc.CullMode = D3D11_CULL_BACK;
-			rasterizer_desc.DepthClipEnable = TRUE; // [“xƒNƒŠƒbƒsƒ“ƒO—LŒø
+			rasterizer_desc.DepthClipEnable = TRUE; // ï¿½[ï¿½xï¿½Nï¿½ï¿½ï¿½bï¿½sï¿½ï¿½ï¿½Oï¿½Lï¿½ï¿½
 
 			m_pDevice->CreateRasterizerState(&rasterizer_desc, m_pRasterizerState.GetAddressOf());
 		}
 
 		if (!m_pVertexShader) {
 
-			// ’¸“_ƒVƒF[ƒ_[‚Ìì¬
+			// ï¿½ï¿½ï¿½_ï¿½Vï¿½Fï¿½[ï¿½_ï¿½[ï¿½Ìì¬
 			static const char* vs_text = R"(
 				float4x4 mtx;
 
@@ -135,7 +135,7 @@ namespace hal
 			D3DCompile(vs_text, strlen(vs_text), nullptr, nullptr, nullptr, "main", "vs_5_0", 0, 0, pVSBlob.GetAddressOf(), nullptr);
 			m_pDevice->CreateVertexShader(pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), nullptr, m_pVertexShader.GetAddressOf());
 
-			// ’¸“_ƒVƒF[ƒ_[‚Ì“ü—ÍƒŒƒCƒAƒEƒg‚ğ’è‹`
+			// ï¿½ï¿½ï¿½_ï¿½Vï¿½Fï¿½[ï¿½_ï¿½[ï¿½Ì“ï¿½ï¿½Íƒï¿½ï¿½Cï¿½Aï¿½Eï¿½gï¿½ï¿½ï¿½`
 			D3D11_INPUT_ELEMENT_DESC layout[] = {
 				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,    0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 				{ "COLOR",    0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
@@ -143,26 +143,26 @@ namespace hal
 			};
 			UINT numElements = ARRAYSIZE(layout);
 
-			// “ü—ÍƒŒƒCƒAƒEƒg‚Ìì¬
+			// ï¿½ï¿½ï¿½Íƒï¿½ï¿½Cï¿½Aï¿½Eï¿½gï¿½Ìì¬
 			m_pDevice->CreateInputLayout(layout, numElements, pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), m_pInputLayout.GetAddressOf());
 		}
 
 		if (!m_pVSConstantBuffer) {
-			// ’è”ƒoƒbƒtƒ@‚Ìì¬
+			// ï¿½è”ï¿½oï¿½bï¿½tï¿½@ï¿½Ìì¬
 			D3D11_BUFFER_DESC constant_buffer_desc = {};
 			constant_buffer_desc.ByteWidth = sizeof(XMFLOAT4X4);
 			constant_buffer_desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
 			m_pDevice->CreateBuffer(&constant_buffer_desc, nullptr, m_pVSConstantBuffer.GetAddressOf());
 
-			// ’è”ƒoƒbƒtƒ@‚É•ÏŠ·s—ñ‚ğİ’è
+			// ï¿½è”ï¿½oï¿½bï¿½tï¿½@ï¿½É•ÏŠï¿½ï¿½sï¿½ï¿½ï¿½İ’ï¿½
 			XMFLOAT4X4 mtx;
 			XMStoreFloat4x4(&mtx, XMMatrixTranspose(XMMatrixOrthographicOffCenterLH(0.0f, (float)screenWidth, (float)screenHeight, 0.0f, 0.0f, 1.0f)));
 			m_pContext->UpdateSubresource(m_pVSConstantBuffer.Get(), 0, nullptr, &mtx, 0, 0);
 		}
 
 		if (!m_pPixelShader) {
-			// ƒsƒNƒZƒ‹ƒVƒF[ƒ_[‚Ìì¬
+			// ï¿½sï¿½Nï¿½Zï¿½ï¿½ï¿½Vï¿½Fï¿½[ï¿½_ï¿½[ï¿½Ìì¬
 			static const char* ps_text = R"(
 				struct PS_INPUT
 				{
@@ -175,7 +175,7 @@ namespace hal
 				float4 main(PS_INPUT psin) : SV_TARGET
 				{
 					float4 color = fontTexture.Sample(fontSampler, psin.uv);
-					return color * psin.color; // ƒeƒNƒXƒ`ƒƒ‚ÌF‚Æ’¸“_ƒJƒ‰[‚ğŠ|‚¯‡‚í‚¹‚é
+					return color * psin.color; // ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌFï¿½Æ’ï¿½ï¿½_ï¿½Jï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½|ï¿½ï¿½ï¿½ï¿½ï¿½í‚¹ï¿½ï¿½
 				}
 			)";
 			ComPtr<ID3DBlob> pPSBlob;
@@ -184,7 +184,7 @@ namespace hal
 		}
 
 		if( !m_pSamplerState) {
-			// ƒTƒ“ƒvƒ‰[ƒXƒe[ƒg‚Ìì¬
+			// ï¿½Tï¿½ï¿½ï¿½vï¿½ï¿½ï¿½[ï¿½Xï¿½eï¿½[ï¿½gï¿½Ìì¬
 			D3D11_SAMPLER_DESC sampler_desc = {};
 			sampler_desc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
 			sampler_desc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
@@ -199,7 +199,7 @@ namespace hal
 
 	DebugText::~DebugText()
 	{
-		// ƒeƒNƒXƒ`ƒƒ‚ÆƒeƒNƒXƒ`ƒƒƒrƒ…[‚ğ‰ğ•ú
+		// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Æƒeï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½rï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (m_pTextureView) {
 			m_pTexture->Release();
 			if(!m_pTextureView->Release()) {
@@ -210,33 +210,33 @@ namespace hal
 
 	void DebugText::SetText(const char* pText, XMFLOAT4 color)
 	{		
-		m_TextLines.back().strings.emplace_back(color); // V‚µ‚¢•¶š—ñ‚ğ’Ç‰Á
+		m_TextLines.back().strings.emplace_back(color); // ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½
 
 		for(; *pText; pText++) {
 	
 			if (*pText == '\n') {
-				m_TextLines.emplace_back(); // s‚ğ‘‚â‚·
-				m_TextLines.back().strings.emplace_back(color); // V‚µ‚¢•¶š—ñ‚ğ’Ç‰Á
+				m_TextLines.emplace_back(); // ï¿½sï¿½ğ‘‚â‚·
+				m_TextLines.back().strings.emplace_back(color); // ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½
 			}
 			else if (*pText == '\r') {
-				// ‰üsƒR[ƒh '\r' ‚Í–³‹
+				// ï¿½ï¿½ï¿½sï¿½Rï¿½[ï¿½h '\r' ï¿½Í–ï¿½ï¿½ï¿½
 			}
 			else if (*pText == '\t') {
 				while (m_TextLines.back().characterCount % 4 != 0) {
 					if (m_MaxCharactersPerLine && m_TextLines.back().characterCount >= m_MaxCharactersPerLine) {
-						m_TextLines.emplace_back(); // s‚ğ‘‚â‚·
-						m_TextLines.back().strings.emplace_back(color); // V‚µ‚¢•¶š—ñ‚ğ’Ç‰Á
+						m_TextLines.emplace_back(); // ï¿½sï¿½ğ‘‚â‚·
+						m_TextLines.back().strings.emplace_back(color); // ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½
 						break;
 					}
-					m_TextLines.back().strings.back().characters += ' '; // ƒ^ƒu‚ÍƒXƒy[ƒX‚É’u‚«Š·‚¦
+					m_TextLines.back().strings.back().characters += ' '; // ï¿½^ï¿½uï¿½ÍƒXï¿½yï¿½[ï¿½Xï¿½É’uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					m_TextLines.back().characterCount++;
 					m_TextLines.back().spaceCount++;
 				}
 			}
 			else {
 				if (m_MaxCharactersPerLine && m_TextLines.back().characterCount >= m_MaxCharactersPerLine) {
-					m_TextLines.emplace_back(); // s‚ğ‘‚â‚·
-					m_TextLines.back().strings.emplace_back(color); // V‚µ‚¢•¶š—ñ‚ğ’Ç‰Á
+					m_TextLines.emplace_back(); // ï¿½sï¿½ğ‘‚â‚·
+					m_TextLines.back().strings.emplace_back(color); // ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½
 				}
 
 				if (*pText >= ' ' && *pText <= '~') {
@@ -245,7 +245,7 @@ namespace hal
 					m_TextLines.back().characterCount++;
 				}
 				else {
-					m_TextLines.back().strings.back().characters += '?'; // •s–¾‚È•¶š‚Í '?' ‚Å’u‚«Š·‚¦
+					m_TextLines.back().strings.back().characters += '?'; // ï¿½sï¿½ï¿½ï¿½È•ï¿½ï¿½ï¿½ï¿½ï¿½ '?' ï¿½Å’uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					m_CharacterCount++;
 					m_TextLines.back().characterCount++;
 				}
@@ -256,34 +256,34 @@ namespace hal
 
 		while(m_MaxLine && m_TextLines.size() + last_line_count > m_MaxLine) {
 			ULONG remove_character_count = m_TextLines.front().characterCount - m_TextLines.front().spaceCount;
-			m_CharacterCount -= remove_character_count; // ŒÃ‚¢s‚Ì•¶š”‚ğŒ¸‚ç‚·
-			m_TextLines.pop_front(); // ŒÃ‚¢s‚ğíœ
+			m_CharacterCount -= remove_character_count; // ï¿½Ã‚ï¿½ï¿½sï¿½Ì•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ç‚·
+			m_TextLines.pop_front(); // ï¿½Ã‚ï¿½ï¿½sï¿½ï¿½ï¿½íœ
 		}
 	}
 
 	void DebugText::Draw()
 	{
 		if( !m_CharacterCount){
-			return; // •`‰æ‚·‚é•¶š‚ª‚È‚¢ê‡‚Í‰½‚à‚µ‚È‚¢
+			return; // ï¿½`ï¿½æ‚·ï¿½é•¶ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ê‡ï¿½Í‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½
 		}
 
 		if (!m_pVertexBuffer || m_CharacterCount > m_BufferSourceCharacterCount) {
 			createBuffer(m_CharacterCount);
 		}
 
-		// ’¸“_ƒoƒbƒtƒ@‚Æ’¸“_ƒCƒ“ƒfƒbƒNƒX‚ğƒƒbƒN‚·‚é
+		// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Æ’ï¿½ï¿½_ï¿½Cï¿½ï¿½ï¿½fï¿½bï¿½Nï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½
 		D3D11_MAPPED_SUBRESOURCE msr;
 		m_pContext->Map(m_pVertexBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &msr);
 
-		// ’¸“_ƒoƒbƒtƒ@‚Ö‚Ì‰¼‘zƒ|ƒCƒ“ƒ^‚ğæ“¾
+		// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Ö‚Ì‰ï¿½ï¿½zï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½ï¿½ï¿½æ“¾
 		Vertex* v = (Vertex*)msr.pData;
 
 		m_pContext->Map(m_pIndexBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &msr);
 
-		// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚Ö‚Ì‰¼‘zƒ|ƒCƒ“ƒ^‚ğæ“¾
+		// ï¿½Cï¿½ï¿½ï¿½fï¿½bï¿½Nï¿½Xï¿½oï¿½bï¿½tï¿½@ï¿½Ö‚Ì‰ï¿½ï¿½zï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½ï¿½ï¿½æ“¾
 		WORD* indices = (WORD*)msr.pData;
 
-		// ’¸“_î•ñ‚ğ‘‚«‚İ
+		// ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		UINT lineCount = 0;
 		WORD characterCount = 0;
 		const float characterWidth = m_TextureWidth / 16.0f;
@@ -343,60 +343,60 @@ namespace hal
 			lineCount++;
 		}
 
-		// ’¸“_ƒoƒbƒtƒ@‚Æ’¸“_ƒCƒ“ƒfƒbƒNƒX‚ÌƒƒbƒN‚ğ‰ğœ
+		// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Æ’ï¿½ï¿½_ï¿½Cï¿½ï¿½ï¿½fï¿½bï¿½Nï¿½Xï¿½Ìƒï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		m_pContext->Unmap(m_pVertexBuffer.Get(), 0);
 		m_pContext->Unmap(m_pIndexBuffer.Get(), 0);
 
-		// ’¸“_ƒoƒbƒtƒ@‚ğ•`‰æƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+		// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½`ï¿½ï¿½pï¿½Cï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Éİ’ï¿½
 		UINT stride = sizeof(Vertex);
 		UINT offset = 0;
 		m_pContext->IASetVertexBuffers(0, 1, m_pVertexBuffer.GetAddressOf(), &stride, &offset);
 
-		// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚ğ•`‰æƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+		// ï¿½Cï¿½ï¿½ï¿½fï¿½bï¿½Nï¿½Xï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½`ï¿½ï¿½pï¿½Cï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Éİ’ï¿½
 		m_pContext->IASetIndexBuffer(m_pIndexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0);
 		
-		// ’¸“_ƒVƒF[ƒ_[‚ğ•`‰æƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+		// ï¿½ï¿½ï¿½_ï¿½Vï¿½Fï¿½[ï¿½_ï¿½[ï¿½ï¿½`ï¿½ï¿½pï¿½Cï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Éİ’ï¿½
 		m_pContext->VSSetShader(m_pVertexShader.Get(), nullptr, 0);
 
-		// ’è”ƒoƒbƒtƒ@‚ğ•`‰æƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+		// ï¿½è”ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½`ï¿½ï¿½pï¿½Cï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Éİ’ï¿½
 		m_pContext->VSSetConstantBuffers(0, 1, m_pVSConstantBuffer.GetAddressOf());
 
-		// “ü—ÍƒŒƒCƒAƒEƒg‚ğ•`‰æƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+		// ï¿½ï¿½ï¿½Íƒï¿½ï¿½Cï¿½Aï¿½Eï¿½gï¿½ï¿½`ï¿½ï¿½pï¿½Cï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Éİ’ï¿½
 		m_pContext->IASetInputLayout(m_pInputLayout.Get());
 
-		// ƒsƒNƒZƒ‹ƒVƒF[ƒ_[‚ÆƒeƒNƒXƒ`ƒƒ‚ÆƒTƒ“ƒvƒ‰[ƒXƒe[ƒg‚ğ•`‰æƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+		// ï¿½sï¿½Nï¿½Zï¿½ï¿½ï¿½Vï¿½Fï¿½[ï¿½_ï¿½[ï¿½Æƒeï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÆƒTï¿½ï¿½ï¿½vï¿½ï¿½ï¿½[ï¿½Xï¿½eï¿½[ï¿½gï¿½ï¿½`ï¿½ï¿½pï¿½Cï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Éİ’ï¿½
 		m_pContext->PSSetShader(m_pPixelShader.Get(), nullptr, 0);
 		m_pContext->PSSetShaderResources(0, 1, &m_pTextureView);
 		m_pContext->PSSetSamplers(0, 1, m_pSamplerState.GetAddressOf());
 
-		ComPtr<ID3D11BlendState> pPreviousBlendState; // İ’è‘O‚ÌƒuƒŒƒ“ƒhƒXƒe[ƒg
+		ComPtr<ID3D11BlendState> pPreviousBlendState; // ï¿½İ’ï¿½Oï¿½Ìƒuï¿½ï¿½ï¿½ï¿½ï¿½hï¿½Xï¿½eï¿½[ï¿½g
 		float previous_blend_factor[4];
 		UINT previous_sample_mask;
 		m_pContext->OMGetBlendState(pPreviousBlendState.GetAddressOf(), previous_blend_factor, &previous_sample_mask);
 
-		// ƒuƒŒƒ“ƒhƒXƒe[ƒg‚ğİ’è
+		// ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½hï¿½Xï¿½eï¿½[ï¿½gï¿½ï¿½İ’ï¿½
 		float blend_factor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
 		m_pContext->OMSetBlendState(m_pBlendState.Get(), blend_factor, 0xffffffff);
 
-		ComPtr<ID3D11DepthStencilState> pPreviousDepthStencilState; // İ’è‘O‚Ì[“xƒXƒeƒ“ƒVƒ‹ƒXƒe[ƒg
+		ComPtr<ID3D11DepthStencilState> pPreviousDepthStencilState; // ï¿½İ’ï¿½Oï¿½Ì[ï¿½xï¿½Xï¿½eï¿½ï¿½ï¿½Vï¿½ï¿½ï¿½Xï¿½eï¿½[ï¿½g
 		UINT previous_stencil_ref = 0;
 		m_pContext->OMGetDepthStencilState(pPreviousDepthStencilState.GetAddressOf(), &previous_stencil_ref);
 
-		// [“xƒXƒeƒ“ƒVƒ‹ƒXƒe[ƒg‚ğİ’è ([“x–³Œø‰»)
+		// ï¿½[ï¿½xï¿½Xï¿½eï¿½ï¿½ï¿½Vï¿½ï¿½ï¿½Xï¿½eï¿½[ï¿½gï¿½ï¿½İ’ï¿½ (ï¿½[ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 		m_pContext->OMSetDepthStencilState(m_pDepthStencilState.Get(), 0);
 
-		// ƒ‰ƒXƒ^ƒ‰ƒCƒU[ƒXƒe[ƒg‚ğİ’è
-		ComPtr<ID3D11RasterizerState> pPreviousRasterizerState; // İ’è‘O‚Ìƒ‰ƒXƒ^ƒ‰ƒCƒU[ƒXƒe[ƒg
+		// ï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Cï¿½Uï¿½[ï¿½Xï¿½eï¿½[ï¿½gï¿½ï¿½İ’ï¿½
+		ComPtr<ID3D11RasterizerState> pPreviousRasterizerState; // ï¿½İ’ï¿½Oï¿½Ìƒï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Cï¿½Uï¿½[ï¿½Xï¿½eï¿½[ï¿½g
 		m_pContext->RSGetState(pPreviousRasterizerState.GetAddressOf());
 		m_pContext->RSSetState(m_pRasterizerState.Get());
 
-		// ƒvƒŠƒ~ƒeƒBƒuƒgƒ|ƒƒWİ’è
+		// ï¿½vï¿½ï¿½ï¿½~ï¿½eï¿½Bï¿½uï¿½gï¿½|ï¿½ï¿½ï¿½Wï¿½İ’ï¿½
 		m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-		// ƒ|ƒŠƒSƒ“•`‰æ–½—ß”­s
+		// ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½`ï¿½æ–½ï¿½ß”ï¿½ï¿½s
 		m_pContext->DrawIndexed(m_CharacterCount * 6, 0, 0);
 
-		// •`‰æŒãAƒuƒŒƒ“ƒhƒXƒe[ƒg‚Æ[“xƒXƒeƒ“ƒVƒ‹ƒXƒe[ƒg‚Æƒ‰ƒXƒ^ƒ‰ƒCƒU[ƒXƒe[ƒg‚ğŒ³‚É–ß‚·
+		// ï¿½`ï¿½ï¿½ï¿½Aï¿½uï¿½ï¿½ï¿½ï¿½ï¿½hï¿½Xï¿½eï¿½[ï¿½gï¿½Æ[ï¿½xï¿½Xï¿½eï¿½ï¿½ï¿½Vï¿½ï¿½ï¿½Xï¿½eï¿½[ï¿½gï¿½Æƒï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Cï¿½Uï¿½[ï¿½Xï¿½eï¿½[ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½É–ß‚ï¿½
 		m_pContext->OMSetBlendState(pPreviousBlendState.Get(), previous_blend_factor, 0xffffffff);
 		m_pContext->OMSetDepthStencilState(pPreviousDepthStencilState.Get(), previous_stencil_ref);
 		m_pContext->RSSetState(pPreviousRasterizerState.Get());
@@ -405,13 +405,13 @@ namespace hal
 	void DebugText::Clear()
 	{
 		m_TextLines.clear();
-		m_TextLines.emplace_back(); // Å‰‚Ìs‚ğÄ“x’Ç‰Á
+		m_TextLines.emplace_back(); // ï¿½Åï¿½ï¿½Ìsï¿½ï¿½ï¿½Ä“xï¿½Ç‰ï¿½
 		m_CharacterCount = 0;
 	}
 
 	void DebugText::createBuffer(ULONG characterCount)
 	{
-		// ’¸“_ƒoƒbƒtƒ@¶¬
+		// ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½ï¿½ï¿½
 		D3D11_BUFFER_DESC bd = {};
 		bd.Usage = D3D11_USAGE_DYNAMIC;
 		bd.ByteWidth = sizeof(Vertex) * characterCount * 4;
@@ -420,7 +420,7 @@ namespace hal
 
 		m_pDevice->CreateBuffer(&bd, NULL, m_pVertexBuffer.ReleaseAndGetAddressOf());
 
-		// ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@¶¬
+		// ï¿½Cï¿½ï¿½ï¿½fï¿½bï¿½Nï¿½Xï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½ï¿½ï¿½
 		bd.ByteWidth = sizeof(WORD) * characterCount * 6;
 		bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
 
