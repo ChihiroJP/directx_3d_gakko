@@ -24,14 +24,56 @@ struct Vertex3D
 
 static Vertex3D g_CubeVertex[NUM_VERTEX]
 {
+    // Front face (Red)
+    {{-0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}},
     {{-0.5f,  0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}},
+    {{ 0.5f,  0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}},
     {{ 0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}},
     {{-0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}},
-    {{ 0.5f, 0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}},
-    {{ 0.5f, 0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}},
-    {{ 0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}}
-        
+    {{ 0.5f,  0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}},
+
+    // Back face (Green)
+    {{-0.5f, -0.5f,  0.5f}, {0.0f, 1.0f, 0.0f, 1.0f}},
+    {{ 0.5f,  0.5f,  0.5f}, {0.0f, 1.0f, 0.0f, 1.0f}},
+    {{-0.5f,  0.5f,  0.5f}, {0.0f, 1.0f, 0.0f, 1.0f}},
+    {{ 0.5f, -0.5f,  0.5f}, {0.0f, 1.0f, 0.0f, 1.0f}},
+    {{ 0.5f,  0.5f,  0.5f}, {0.0f, 1.0f, 0.0f, 1.0f}},
+    {{-0.5f, -0.5f,  0.5f}, {0.0f, 1.0f, 0.0f, 1.0f}},
+
+    // Top face (Cyan)
+    {{-0.5f,  0.5f, -0.5f}, {0.0f, 1.0f, 1.0f, 1.0f}},
+    {{-0.5f,  0.5f,  0.5f}, {0.0f, 1.0f, 1.0f, 1.0f}},
+    {{ 0.5f,  0.5f,  0.5f}, {0.0f, 1.0f, 1.0f, 1.0f}},
+    {{ 0.5f,  0.5f, -0.5f}, {0.0f, 1.0f, 1.0f, 1.0f}},
+    {{-0.5f,  0.5f, -0.5f}, {0.0f, 1.0f, 1.0f, 1.0f}},
+    {{ 0.5f,  0.5f,  0.5f}, {0.0f, 1.0f, 1.0f, 1.0f}},
+
+    // Bottom face (Magenta)
+    {{-0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 1.0f, 1.0f}},
+    {{ 0.5f, -0.5f,  0.5f}, {1.0f, 0.0f, 1.0f, 1.0f}},
+    {{-0.5f, -0.5f,  0.5f}, {1.0f, 0.0f, 1.0f, 1.0f}},
+    {{ 0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 1.0f, 1.0f}},
+    {{ 0.5f, -0.5f,  0.5f}, {1.0f, 0.0f, 1.0f, 1.0f}},
+    {{-0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 1.0f, 1.0f}},
+
+    // Left face (Blue)
+    {{-0.5f, -0.5f,  0.5f}, {0.0f, 0.0f, 1.0f, 1.0f}},
+    {{-0.5f,  0.5f, -0.5f}, {0.0f, 0.0f, 1.0f, 1.0f}},
+    {{-0.5f, -0.5f, -0.5f}, {0.0f, 0.0f, 1.0f, 1.0f}},
+    {{-0.5f,  0.5f,  0.5f}, {0.0f, 0.0f, 1.0f, 1.0f}},
+    {{-0.5f,  0.5f, -0.5f}, {0.0f, 0.0f, 1.0f, 1.0f}},
+    {{-0.5f, -0.5f,  0.5f}, {0.0f, 0.0f, 1.0f, 1.0f}},
+
+    // Right face (Yellow)
+    {{ 0.5f, -0.5f,  0.5f}, {1.0f, 1.0f, 0.0f, 1.0f}},
+    {{ 0.5f, -0.5f, -0.5f}, {1.0f, 1.0f, 0.0f, 1.0f}},
+    {{ 0.5f,  0.5f, -0.5f}, {1.0f, 1.0f, 0.0f, 1.0f}},
+    {{ 0.5f,  0.5f,  0.5f}, {1.0f, 1.0f, 0.0f, 1.0f}},
+    {{ 0.5f, -0.5f,  0.5f}, {1.0f, 1.0f, 0.0f, 1.0f}},
+    {{ 0.5f,  0.5f, -0.5f}, {1.0f, 1.0f, 0.0f, 1.0f}},
 };
+
+
 
 void Cube_Initialize(ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 {
@@ -62,6 +104,9 @@ void Cube_Draw(void)
 {
     Shader3d_Begin();
 
+    static float g_angle = 0.0f;
+    g_angle += 0.005f; // Increment the angle a little each frame
+
     // 頂点バッファを描画パイプライン処理
     UINT stride = sizeof(Vertex3D);
     UINT offset = 0;
@@ -72,7 +117,10 @@ void Cube_Draw(void)
     // =====================================================================================================================================================
     
     // ワールド座標変換行列
-    DirectX::XMMATRIX mtxWorld = DirectX::XMMatrixIdentity(); // 単位行列の作成
+    // DirectX::XMMATRIX mtxWorld = DirectX::XMMatrixIdentity(); // 単位行列の作成
+    DirectX::XMMATRIX mtxRotateY = DirectX::XMMatrixRotationY(g_angle);
+    DirectX::XMMATRIX mtxRotateX = DirectX::XMMatrixRotationX(g_angle * 0.5f);
+    DirectX::XMMATRIX mtxWorld = mtxRotateX * mtxRotateY; // Combine rotations
 
     // 頂点シェーダにワールド座標変換行列を設定
     Shader3d_SetWorldMatrix(mtxWorld);
@@ -104,6 +152,6 @@ void Cube_Draw(void)
     // g_pContext -> PSSetShaderResources(0, 1, &g_pTexture);
 
     
-    g_pContext->Draw(6, 0); // 面を増やすなら、vertex count (今は6)の部分を増やす 1面 = 6, 2面 = 12 etc
+    g_pContext->Draw(NUM_VERTEX, 0); // 面を増やすなら、vertex count (今は6)の部分を増やす 1面 = 6, 2面 = 12 etc
 
 }

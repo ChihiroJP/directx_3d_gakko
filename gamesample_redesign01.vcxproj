@@ -143,6 +143,7 @@
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="GameWindow.cpp" />
+    <ClCompile Include="grid.cpp" />
     <ClCompile Include="keyboard.cpp" />
     <ClCompile Include="key_logger.cpp" />
     <ClCompile Include="main.cpp" />
@@ -152,7 +153,7 @@
     <ClCompile Include="score.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="shader3d.cpp" />
-    <ClCompile Include="shader\shader_pixel_3d.hlsl">
+    <FxCompile Include="shader\shader_pixel_3d.hlsl">
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <Optimization>Disabled</Optimization>
@@ -226,8 +227,14 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;NOMINMAX;_MBCS;</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <LinkCompiled>true</LinkCompiled>
-    </ClCompile>
-    <ClCompile Include="shader\shader_vertex_3d.hlsl">
+      <FileType>Document</FileType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\chiha\Downloads\Shooting Game (2)\Shooting Game\x64\Debug\%(Filename).cso</ObjectFileOutput>
+      <AssemblerOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </AssemblerOutput>
+    </FxCompile>
+    <FxCompile Include="shader\shader_vertex_3d.hlsl">
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <Optimization>Disabled</Optimization>
@@ -301,7 +308,15 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;NOMINMAX;_MBCS;</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <LinkCompiled>true</LinkCompiled>
-    </ClCompile>
+      <FileType>Document</FileType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\chiha\Downloads\Shooting Game (2)\Shooting Game\x64\Debug\%(Filename).cso</ObjectFileOutput>
+      <AssemblerOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </AssemblerOutput>
+    </FxCompile>
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="sprite_anim.cpp" />
     <ClCompile Include="system_timer.cpp" />
@@ -322,6 +337,7 @@
     <ClInclude Include="header\fade.h" />
     <ClInclude Include="header\game.h" />
     <ClInclude Include="header\GameWindow.h" />
+    <ClInclude Include="header\grid.h" />
     <ClInclude Include="header\keyboard.h" />
     <ClInclude Include="header\key_logger.h" />
     <ClInclude Include="header\mouse.h" />
