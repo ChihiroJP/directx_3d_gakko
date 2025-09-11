@@ -25,6 +25,7 @@
 #include "header/Audio.h"
 #include "header/score.h"
 #include "header/cube.h"
+#include "header/grid.h"
 
 using namespace DirectX;
 
@@ -51,6 +52,7 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPSTR, _
 	Mouse_SetVisible(false);
 	Scene_Initialize();
 	Cube_Initialize(Direct3D_GetDevice(), Direct3D_GetContext());
+	Grid_Initialize(Direct3D_GetDevice(), Direct3D_GetContext());
 
 
 #if defined(DEBUG) || defined(_DEBUG)
@@ -133,7 +135,7 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPSTR, _
 #endif
 
 	Cube_Finalize();
-
+	Grid_Finalize();
 	Scene_Finalize();
 	Fade_Finalize();
 	SpriteAnim_Finalize();

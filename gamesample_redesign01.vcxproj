@@ -132,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Audio.cpp" />
+    <ClCompile Include="camera.cpp" />
     <ClCompile Include="collision.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MaxSpeed</Optimization>
     </ClCompile>
@@ -327,6 +328,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\Audio.h" />
+    <ClInclude Include="header\camera.h" />
     <ClInclude Include="header\collision.h" />
     <ClInclude Include="header\cube.h" />
     <ClInclude Include="header\debug_ostream.h" />

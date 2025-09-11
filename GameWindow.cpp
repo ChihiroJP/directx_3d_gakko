@@ -22,7 +22,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	Window Information
 	---------------------------------------------------------------------------------------*/
 static constexpr char WINDOW_CLASS[] = "GameWindow"; // main window access name
-static constexpr char TITLE[] = "GameWindow"; //window �̃e�L�X�g
+static constexpr char TITLE[] = "GameWindow"; //window
 
 HWND GameWindow_Create(HINSTANCE hInstance)
 {
@@ -40,9 +40,9 @@ HWND GameWindow_Create(HINSTANCE hInstance)
 	wcex.hIconSm = LoadIcon(wcex.hInstance, IDI_APPLICATION);
 	RegisterClassEx(&wcex);
 
-	/* Main Window �̍쐬 */
-	constexpr int SCREEN_WIDTH = 1600;
-	constexpr int SCREEN_HEIGHT = 900;
+	/* Main Window */
+	constexpr int SCREEN_WIDTH = 1920;
+	constexpr int SCREEN_HEIGHT = 1080;
 
 	RECT window_rect{ 0,0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
@@ -53,7 +53,7 @@ HWND GameWindow_Create(HINSTANCE hInstance)
 	const int WINDOW_WIDTH = window_rect.right - window_rect.left;
 	const int WINDOW_HEIGHT = window_rect.bottom - window_rect.top;
 
-	// primary monitor {window ko a lal mhr htrr nee)
+	// primary monitor
 	int desktop_width = GetSystemMetrics(SM_CXSCREEN);
 	int desktop_height = GetSystemMetrics(SM_CYSCREEN);
 

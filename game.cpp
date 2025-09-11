@@ -8,7 +8,8 @@
 ==============================================================================*/
 #include "header/game.h"
 #include "header/cube.h"
-
+#include "header/grid.h"
+#include "header/camera.h"
 
 
 static bool g_start = false;
@@ -20,12 +21,12 @@ static bool g_GameStart = false;
 
 void Game_Initialize()
 {
-
+	Camera_Initialize();
 }
 
 void Game_Finalize()
 {
-
+	Camera_Finalize();
 }
 
 void Game_Update(double elapsed_time)
@@ -35,6 +36,9 @@ void Game_Update(double elapsed_time)
 
 void Game_Draw()
 {
+	Camera_Update();
+	
+	Grid_Draw();
 	Cube_Draw();
-
+	
 }

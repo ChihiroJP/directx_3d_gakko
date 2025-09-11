@@ -105,7 +105,7 @@ void Cube_Draw(void)
     Shader3d_Begin();
 
     static float g_angle = 0.0f;
-    g_angle += 0.005f; // Increment the angle a little each frame
+    g_angle += 0.001f; // Increment the angle a little each frame
 
     // 頂点バッファを描画パイプライン処理
     UINT stride = sizeof(Vertex3D);
@@ -118,30 +118,15 @@ void Cube_Draw(void)
     
     // ワールド座標変換行列
     // DirectX::XMMATRIX mtxWorld = DirectX::XMMatrixIdentity(); // 単位行列の作成
-    DirectX::XMMATRIX mtxRotateY = DirectX::XMMatrixRotationY(g_angle);
-    DirectX::XMMATRIX mtxRotateX = DirectX::XMMatrixRotationX(g_angle * 0.5f);
-    DirectX::XMMATRIX mtxWorld = mtxRotateX * mtxRotateY; // Combine rotations
-
+    // ==================================================== If want rotate use below 3 line ==================================================================
+    // DirectX::XMMATRIX mtxRotateY = DirectX::XMMatrixRotationY(g_angle);
+    // DirectX::XMMATRIX mtxRotateX = DirectX::XMMatrixRotationX(g_angle * 0.5f);
+    // DirectX::XMMATRIX mtxWorld = mtxRotateX * mtxRotateY; // Combine rotations
+    // ==================================================== If want rotate use above 3 line ==================================================================
+    DirectX::XMMATRIX mtxWorld = DirectX::XMMatrixTranslation(2.0f, 0.5f, 2.0f);
+    
     // 頂点シェーダにワールド座標変換行列を設定
     Shader3d_SetWorldMatrix(mtxWorld);
-
-    // ビュー座標へんかんぎょうれつの作成
-    DirectX::XMMATRIX mtxView = DirectX::XMMatrixLookAtLH(
-		{ 2.0f, 2.0f, -5.0f }, // カメラの位置
-		{ 0.0f, 0.0f, 0.0f }, // 注視点の位置
-		{ 0.0f, 1.0f, 0.0f }); // カメラの上方向ベクトル
-
-    Shader3d_SetViewMatrix(mtxView);
-    
-    // パースペクティブ行列の作成
-    constexpr float fovAngleY = DirectX::XMConvertToRadians(60.0f);
-    float aspectRatio = static_cast<float>(Direct3D_GetBackBufferWidth()) / Direct3D_GetBackBufferHeight();
-    float nearZ = 0.01f;
-    float farZ = 100.0f;
-    DirectX::XMMATRIX mtxPerspective = DirectX::XMMatrixPerspectiveFovLH(fovAngleY, aspectRatio, nearZ, farZ); // cast として計算して、float変換する
-
-    // 頂点シェーダにプロジェクション変換
-    Shader3d_SetProjectionMatrix(mtxPerspective);
 
     //                                    変換終わり
     // ==================================================================================================================================================
