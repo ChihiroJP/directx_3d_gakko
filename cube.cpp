@@ -105,7 +105,7 @@ void Cube_Draw(void)
     Shader3d_Begin();
 
     static float g_angle = 0.0f;
-    g_angle += 0.001f; // Increment the angle a little each frame
+    g_angle += 0.003f; // Increment the angle a little each frame
 
     // 頂点バッファを描画パイプライン処理
     UINT stride = sizeof(Vertex3D);
@@ -119,11 +119,11 @@ void Cube_Draw(void)
     // ワールド座標変換行列
     // DirectX::XMMATRIX mtxWorld = DirectX::XMMatrixIdentity(); // 単位行列の作成
     // ==================================================== If want rotate use below 3 line ==================================================================
-    // DirectX::XMMATRIX mtxRotateY = DirectX::XMMatrixRotationY(g_angle);
-    // DirectX::XMMATRIX mtxRotateX = DirectX::XMMatrixRotationX(g_angle * 0.5f);
-    // DirectX::XMMATRIX mtxWorld = mtxRotateX * mtxRotateY; // Combine rotations
+    DirectX::XMMATRIX mtxRotateY = DirectX::XMMatrixRotationY(g_angle);
+    DirectX::XMMATRIX mtxRotateX = DirectX::XMMatrixRotationX(g_angle * 0.5f);
+    DirectX::XMMATRIX mtxWorld = mtxRotateX * mtxRotateY; // Combine rotations
     // ==================================================== If want rotate use above 3 line ==================================================================
-    DirectX::XMMATRIX mtxWorld = DirectX::XMMatrixTranslation(2.0f, 0.5f, 2.0f);
+    // DirectX::XMMATRIX mtxWorld = DirectX::XMMatrixTranslation(2.0f, 0.5f, 2.0f);
     
     // 頂点シェーダにワールド座標変換行列を設定
     Shader3d_SetWorldMatrix(mtxWorld);

@@ -41,8 +41,8 @@ HWND GameWindow_Create(HINSTANCE hInstance)
 	RegisterClassEx(&wcex);
 
 	/* Main Window */
-	constexpr int SCREEN_WIDTH = 1920;
-	constexpr int SCREEN_HEIGHT = 1080;
+	constexpr int SCREEN_WIDTH = 1600;
+	constexpr int SCREEN_HEIGHT = 900;
 
 	RECT window_rect{ 0,0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
