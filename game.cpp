@@ -43,12 +43,12 @@ void Game_Update(double elapsed_time)
 	g_x = sinf(g_AccumulatedTime) * 4.5f; // Move left and right
 	g_scale = (sinf(g_AccumulatedTime) + 1.0f) * 0.5f + 0.5f; // Scale between 0.0 and 1.5
 	g_angle = g_AccumulatedTime * 0.5f; // Rotate over time
+
+	Camera_Update(elapsed_time);
 }
 
 void Game_Draw()
 {
-	Camera_Update();
-	
 	Grid_Draw();
     // =========================================================================== pyramic =========================================================================================
     for (int y = 0; y < total; y++) {
