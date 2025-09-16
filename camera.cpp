@@ -28,6 +28,12 @@ void Camera_Update(double elapsed_time)
 	XMVECTOR cameraRight = XMLoadFloat3(&g_cameraRight);
 	XMVECTOR cameraPos = XMLoadFloat3(&g_cameraPos);
 
+    // 下向き
+    if (KeyLogger_IsPressed(KK_DOWN))
+    {
+        
+	}
+
     // カメラ移動 (前)
 	if (KeyLogger_IsPressed(KK_W)) cameraPos += cameraFront * CAMERA_MOVE_SPEED * elapsed_time;
 	if (KeyLogger_IsPressed(KK_A)) cameraPos += -cameraRight * CAMERA_MOVE_SPEED * elapsed_time;
