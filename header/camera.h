@@ -1,7 +1,7 @@
 ﻿/*==============================================================================
 
 Aduio  [audio.h]
-                                                         Author : Chee HOw
+                                                         Author : Chee How
                                                          Date   : 2025/07/09
 --------------------------------------------------------------------------------
 
@@ -10,7 +10,7 @@ Aduio  [audio.h]
 #define CAMERA_H
 
 void Camera_Initialize();
-void Camera_Update();
+void Camera_Update(double elapsed_time);
 void Camera_Finalize();
 
 
