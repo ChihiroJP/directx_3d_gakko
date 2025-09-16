@@ -34,6 +34,12 @@ void Camera_Update(double elapsed_time)
 	if (KeyLogger_IsPressed(KK_S)) cameraPos += -cameraFront * CAMERA_MOVE_SPEED * elapsed_time;
 	if (KeyLogger_IsPressed(KK_D)) cameraPos += cameraRight * CAMERA_MOVE_SPEED * elapsed_time;
 
+	// 各種更新結果の保存
+	XMStoreFloat3(&g_cameraPos, cameraPos);
+	XMStoreFloat3(&g_cameraFront, cameraFront);
+	XMStoreFloat3(&g_cameraUp, cameraUp);
+	XMStoreFloat3(&g_cameraRight, cameraRight);
+
     // ビュー座標へんかんぎょうれつの作成
     DirectX::XMMATRIX mtxView = DirectX::XMMatrixLookAtLH(
         cameraPos, // カメラの位置
