@@ -26,14 +26,14 @@ struct Vertex3D
 {
     DirectX::XMFLOAT3 position; // 座標
     DirectX::XMFLOAT4 color; // 色
-   // DirectX::XMFLOAT2 uv;
+    DirectX::XMFLOAT2 texcoord; // UV
 };
 
 static Vertex3D g_CubeVertex[NUM_VERTEX]
 {
     // Front face (Red)
-    {{-0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}},
-    {{-0.5f,  0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}},
+    {{-0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}, {0.0f, 0.0f}},
+    {{-0.5f,  0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}, {0.25f, 0.25f}},
     {{ 0.5f,  0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}},
     {{ 0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}},
     {{-0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}},
