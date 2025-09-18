@@ -1,6 +1,6 @@
 /*==============================================================================
 
-	Game 本体 [game.cpp]
+	Game [game.cpp]
 														 Author : CheeHow
 														 Date   : 2025/06/27
 --------------------------------------------------------------------------------
@@ -68,12 +68,12 @@ void Game_Draw()
         for (int z = 0; z < total - y; z++) {
             for (int x = 0; x < total - y; x++) {
                 // ワールド座標変換行列
-                DirectX::XMMATRIX mtxWorld1 = DirectX::XMMatrixIdentity(); // 単位行列の作成
-                DirectX::XMMATRIX mtxPosition1 = DirectX::XMMatrixTranslation(-4.5f + x + 0.5f * y, 0.5f + y, -4.5f + z + 0.5f * y); // move position (平行移動)
+                DirectX::XMMATRIX mtxWorld1 = DirectX::XMMatrixIdentity(); 
+                DirectX::XMMATRIX mtxPosition1 = DirectX::XMMatrixTranslation(-4.5f + x + 0.5f * y, 0.5f + y, -4.5f + z + 0.5f * y); // move position
                 DirectX::XMMATRIX mtxRotateY = DirectX::XMMatrixRotationY(g_angle);
                 mtxWorld1 = mtxRotateY * mtxPosition1; // Combine ( Remember need to follow (Rotate -> Scaling -> Move)
 
-                // 頂点シェーダにワールド座標変換行列を設定
+                
 				Cube_Draw(mtxWorld1);
             }
         }
