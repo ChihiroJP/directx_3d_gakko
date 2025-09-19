@@ -1,4 +1,4 @@
-/*==============================================================================
+ï»¿/*==============================================================================
 
 	Game [game.cpp]
 														 Author : CheeHow
@@ -67,7 +67,7 @@ void Game_Draw()
     for (int y = 0; y < total; y++) {
         for (int z = 0; z < total - y; z++) {
             for (int x = 0; x < total - y; x++) {
-                // ƒ[ƒ‹ƒhÀ•W•ÏŠ·s—ñ
+                // Æ’ÂÂ[Æ’â€¹Æ’hÂÃ€â€¢Wâ€¢ÃÅ Â·Âsâ€”Ã±
                 DirectX::XMMATRIX mtxWorld1 = DirectX::XMMatrixIdentity(); 
                 DirectX::XMMATRIX mtxPosition1 = DirectX::XMMatrixTranslation(-4.5f + x + 0.5f * y, 0.5f + y, -4.5f + z + 0.5f * y); // move position
                 DirectX::XMMATRIX mtxRotateY = DirectX::XMMatrixRotationY(g_angle);
