@@ -8,7 +8,7 @@
 ==============================================================================*/
 struct PS_IN
 {
-    float4 posH : SV_POSITION;
+    float4 posH : SV_POSITION; // why error
     float4 color : COLOR0;
     float2 uv : TEXCOORD0;
 };
