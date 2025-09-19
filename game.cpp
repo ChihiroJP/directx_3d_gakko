@@ -29,7 +29,7 @@ static bool g_GameStart = false;
 
 void Game_Initialize()
 {
-	Camera_Initialize({8.0f, 8.0f, -12.0f }, {-0.5f, -0.3f, -0.7f}, {0.8f, 0.0f, 0.5f}, {-0.18f, 0.9f, 0.2f});
+	Camera_Initialize();
 }
 
 void Game_Finalize()
@@ -53,7 +53,7 @@ void Game_Update(double elapsed_time)
     }
 
     DirectX::XMVECTOR cube_position = DirectX::XMLoadFloat3(&g_CubePosition);
-    cube_position += DirectX::XMLoadFloat3(&g_CubeVelocity) * elapsed_time;
+    cube_position += DirectX::XMLoadFloat3(&g_CubeVelocity) * static_cast<float>(elapsed_time);
     DirectX::XMStoreFloat3(&g_CubePosition, cube_position);
 }
 
